@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Mail;
 use App\Mail\mailRegistroLaboratorio;
 use Illuminate\Support\Str;
+use App\Models\Configuracion;
 
 class Usuarios extends Component
 {
@@ -112,7 +113,8 @@ class Usuarios extends Component
         $name = $laboratorio->name;
         $email = $laboratorio->email;
 
-        $emailcopia = 'ohaymard@gmail.com';
+        $config = Configuracion::first();
+        $emailcopia = $config->email_system;
         //funcion que envia el correo
         Mail::to($email)->send(new mailRegistroLaboratorio($name, $email, $password, $token));
         //copia del correo para la administracion

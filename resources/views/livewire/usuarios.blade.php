@@ -189,13 +189,13 @@
             {{ __('Laboratorio Registrado Correctamente ') }}
         </x-slot>
         <x-slot name="content">             
-            <div class="grid grid-cols-8 gap-8 text-sm text-gray-600">
-                <div class="col-span-8 sm:col-span-4">
+            
+                <div class="col-span-4 sm:col-span-2">
                     <x-jet-label for="token" value="{{ __('Token para la API') }}" />
                     <x-jet-input id="token" type="text" class="mt-1 block w-full" wire:model.defer="token" disabled/>
                     <x-jet-input-error for="token" class="mt-2" />
                 </div>                                                      
-            </div>
+            
         </x-slot>
 
         <x-slot name="footer">

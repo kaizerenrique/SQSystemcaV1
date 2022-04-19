@@ -9,6 +9,7 @@ use App\Models\Historial;
 use Illuminate\Support\Str;
 use Mail;
 use App\Mail\notificacion;
+use App\Models\Configuracion;
 
 
 class Personas extends Component
@@ -49,7 +50,8 @@ class Personas extends Component
         //consultar el numero de registros que tiene el usuario
         $num =  Persona::where('user_id', auth()->user()->id)->count();
         //establecer un limite para los registros
-        $lin = 6;
+        $config = Configuracion::first();
+        $lin = $config->max_personas;
 
         //si el limite a sido alcanzado se procede a enviar un mensaje notificando que el limite fue alcanzado
         //de lo contrario se procede con el registro
