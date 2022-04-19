@@ -14,28 +14,19 @@
     </div> 
 
 <!-- seccion de personas -->
-    <div class="grid grid-cols-1 md:grid-cols-3">
-            @foreach($personas as $persona)
-                <div class="p-4">
-                    <div class="flex items-center">
-                        <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
-                            Nombre: {{$persona->nombre }} {{$persona->apellido}}
-                        </div>
-                    </div>
-                    <div class="ml-12"> 
-                        <div class="mt-2 text-sm text-gray-500">
-                            Cedula: {{$persona->nac }}{{$persona->cedula }} 
-                        </div>
-                        <div class="mt-2 text-sm text-gray-500">                     
-                            Código: {{$persona->idusuario }} 
-                        </div>
-                        <x-jet-button class="mt-2 bg-green-500 hover:bg-green-700" wire:click="mostrarCodigo({{$persona->id}})" >
-                            {{ __('Ver') }}
-                        </x-jet-button> 
-                    </div>                          
-                </div>
-            @endforeach
-       
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 py-6">
+        @foreach($personas as $persona)
+            <card class="col-span-1 bg-teal-400 w-80 rounded-2xl border shadow py-12 px-8 hover:-translate-y-1 hover:shadow-2xl hover:bg-teal-200 delay-75 duration-100">
+                <p class="text-center text-xl text-gray-700 font-semibold py-3">Perfil de Usuario</p>
+                <p class="text-lg text-gray-700 font-semibold mt-1">{{$persona->nombre }}</p>
+                <p class="text-lg text-gray-700 font-semibold mt-1">{{$persona->apellido}}</p>
+                <p class="text-lg text-gray-700 font-semibold mt-1">{{$persona->nac }}{{$persona->cedula }}</p>
+                <p class="text-lg text-gray-700 font-semibold mt-1">Código: {{$persona->idusuario }} </p>                
+                <button class="mt-10 w-full py-3 rounded-xl border border-purple-600 text-lg text-purple-600 hover:bg-purple-600 hover:text-gray-50" wire:click="mostrarCodigo({{$persona->id}})">
+                    Ver
+                </button>
+            </card>                
+        @endforeach       
     </div>
 
     <div>

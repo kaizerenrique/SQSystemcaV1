@@ -1,6 +1,6 @@
 <div class="p-2 sm:px-20 bg-white border-b border-gray-200">
     <div class="mt-4 text-2xl">
-        <div class="mt-4 text-2xl flex justify-between shadow-inner">
+        <div class="mt-4 text-2xl flex justify-between">
             <div>Total de Usuarios Registrados: {{$users_count}} </div>
             <div class="mr-2">
                 <x-jet-button class="bg-indigo-500 hover:bg-indigo-700" wire:click="laboratorioAdd" >
