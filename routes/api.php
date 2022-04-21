@@ -32,8 +32,8 @@ Route::get('/perfilinfo/{code}',[ApiController::class,'perfilinfo'])->middleware
 
 Route::get('/cedulaInfo/{cedula}',[ApiController::class,'cedulaInfo'])->middleware('auth:sanctum');
 
-Route::post('documento',[ApiController::class,'documento'])->middleware('auth:sanctum');
-
 Route::get('/generadorDeEnlaces',[ApiController::class,'generadorDeEnlaces'])->middleware('auth:sanctum');
 
 Route::get('/cedulaInfo/{cedula}',[ApiController::class,'cedulaInfo'])->middleware('auth:sanctum');
+
+Route::post('documento',[ApiController::class,'doc'])->middleware('auth:sanctum');

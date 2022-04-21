@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Mail;
 use App\Mail\notificacion;
 use App\Models\Configuracion;
+use Illuminate\Support\Facades\Http;
 
 
 class Personas extends Component
@@ -37,7 +38,9 @@ class Personas extends Component
     {        
         $personas = Persona::where('user_id', auth()->user()->id)->get();
 
-        $historials = Historial::where('persona_id', auth()->user()->id)->get();        
+        $historials = Historial::where('persona_id', auth()->user()->id)
+            ->orderBy('id','desc')
+            ->paginate(5);
 
         return view('livewire.personas',[
             'personas' => $personas,

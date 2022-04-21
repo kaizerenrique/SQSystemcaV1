@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -83,7 +85,7 @@ class ApiController extends Controller
 
             //Respuesta
             return response([
-                "status" => 1,
+                "status" => 500,
                 "ms" => "Perfile de Usuario",
                 "data" => "Codigo no Registrada"
             ]);
@@ -106,7 +108,7 @@ class ApiController extends Controller
 
             //Respuesta
             return response([
-                "status" => 1,
+                "status" => 500,
                 "ms" => "Perfile de Usuario",
                 "data" => "Cedula no Registrada"
             ]);
@@ -133,66 +135,53 @@ class ApiController extends Controller
             ]);        
     }
 
-    //Guarda el Documento
-    public function documento(Request $request)
+
+    public function doc(Request $request)
     {
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $filename = $file->getClientOriginalName();
-            $filename = pathinfo($filename, PATHINFO_FILENAME);
-            $name_File = str_replace(" ", "_", $filename);
-            $extension = $file->getClientOriginalExtension();
-            $picture = date('His').'_'.$name_File.'.'.$extension;
-
-            if (Historial::where('url_simbol', $request->url_simbol)->exists()) {
-                //Respuesta
-                return response([
-                    "status" => 1,
-                    "ms" => "Error de URL Simbolico",
-                ]);
-            }else {
-                $code = $request->code;
-                $persona_id = $request->persona_id;
-                $url_simbol = $request->url_simbol;
-                $url_code = $request->url_code;
-                $nombreArchivo = $picture;
-                $user = $request->user();
-
-
-                $path = $request->file('file')->storeAs(
-                    'public/documentos/'. $code, $picture
-                );
-                
-                $url_documento = 'app/public/documentos/'. $code. '/' ; 
-
-                $historial = Historial::create([ 
-                    'persona_id' => $persona_id,           
-                    'codigo' => $code,
-                    'nombreArchivo' => $picture,
-                    'url_simbol' => $url_simbol,
-                    'url_code' => $url_code,
-                    'url_documento' => $url_documento,
-                    'user_id' => $user->id,
-                    'nombreLaboratorio' => $user->name
-                ]);
-
-                //Respuesta
-                return response([
-                    "status" => 200,
-                    "ms" => "Exitoso",
-                    "data" => $historial
-                ]);
-            }            
-
-        } else {
-
+        if (Historial::where('url_simbol', $request->url_simbol)->exists()) {
             //Respuesta
             return response([
-                "status" => 1,
-                "ms" => "Error de archivo",
+                "status" => 500,
+                "ms" => "Error de URL Simbolico",
             ]);
-        }          
-    }
+        }else {
+            $image_64 = $request['file'];
+            $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1];   // .jpg .png .pdf
+            $replace = substr($image_64, 0, strpos($image_64, ',')+1);
+            $image = str_replace($replace, '', $image_64);
+            $image = str_replace(' ', '+', $image);            
 
-    
+            //generar nombre de forma randon y confirmar que no se repite
+            do {
+                $imageName = Str::random(10).'.'.$extension;
+            } while (Historial::where('nombreArchivo', $imageName )->exists());
+            
+            $code = $request->code;
+            $persona_id = $request->persona_id;
+            $url_simbol = $request->url_simbol;
+            $url_code = $request->url_code;
+            $user = $request->user();
+
+            Storage::disk('public')->put($imageName, base64_decode($image));
+
+            $url_documento = Storage::disk('public')->url($imageName);
+
+            $historial = Historial::create([ 
+                'persona_id' => $persona_id,           
+                'codigo' => $code,
+                'nombreArchivo' => $imageName,
+                'url_simbol' => $url_simbol,
+                'url_code' => $url_code,
+                'url_documento' => $url_documento,
+                'user_id' => $user->id,
+                'nombreLaboratorio' => $user->name
+            ]);        
+
+            return response([
+                "status" => 200,
+                "ms" => "Exitoso",
+                "data" => $historial
+            ]);
+        }
+    }    
 }

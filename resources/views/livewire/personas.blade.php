@@ -76,6 +76,9 @@
             </tbody>
         </table>        
     </div>
+    <div class="mt-4">
+        {{$historials->links()}}
+    </div>
 
 <!-- Inicio del Modal para Editar datos de usuario -->
     <x-jet-dialog-modal wire:model="modalCedula">

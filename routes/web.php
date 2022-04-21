@@ -38,8 +38,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/configuracion', function 
 
 //ruta para documentos
 Route::get('/documentos/{url_code}', function ($url_code) {
-    $respuesta = Historial::where("url_code", $url_code)->first();
-    $name = $respuesta->nombreArchivo;
-    $url_documento = $respuesta->url_documento;    
-    return response()->file(storage_path($url_documento. $name));    
+    $respuesta = Historial::where("url_code", $url_code)->first();    
+    $url_documento = $respuesta->url_documento;
+    return Redirect::to($url_documento);       
 });

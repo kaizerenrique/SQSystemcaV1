@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
+use App\Models\Configuracion;
 
 class RoleSeeder extends Seeder
 {
@@ -68,5 +69,11 @@ class RoleSeeder extends Seeder
             'password' => bcrypt('123456789'),
             'email_verified_at' => '2022-02-26 20:48:29'
         ])->assignRole('Usuario');
+
+        Configuracion::create([
+            'max_personas' => 6,
+            'max_empresas' => 24,
+            'email_system' => 'ohaymard@gmail.com'
+        ]);
     }
 }

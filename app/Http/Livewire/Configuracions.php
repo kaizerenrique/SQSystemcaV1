@@ -15,7 +15,7 @@ class Configuracions extends Component
     public Configuracion $confi;    
 
     public function render()
-    {
+    {   
         $config = Configuracion::first();
 
         $users_count = User::count(); //total de usuarios registrados
