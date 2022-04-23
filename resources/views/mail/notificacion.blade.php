@@ -1,7 +1,7 @@
 @component('mail::message')
 # Saludos
 
-El registro se a realizado correctamente
+{{$mensajeCorreo}}
 
 ### Nombre: {{$nombre}}
 ### Apellido: {{$apellido}}

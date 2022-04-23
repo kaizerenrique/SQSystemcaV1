@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Mail;
 use App\Mail\notificacion;
 use App\Models\Configuracion;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
 
 
@@ -28,14 +29,20 @@ class Personas extends Component
     public $direccion;
     public $mensaje;
     public $codigo;
+    public $resultado;
+    public $idDoc;
+    public $titulo;
     public $modalCedula = false;
     public $mostrarResulCedula = false;
     public $mensajeModal = false;
     public $confirmingPersonaAdd = false;
     public $codigoModal = false;
+    public $eliminaDocAlerta = false;
+    public $eliminado = false;
+    public $eliminaPerfilAlerta = false;
    
     public function render()
-    {        
+    {
         $personas = Persona::where('user_id', auth()->user()->id)->get();
 
         $historials = Historial::where('persona_id', auth()->user()->id)
@@ -116,7 +123,6 @@ class Personas extends Component
             $this->cedula = $cedula;
             $this->confirmingPersonaAdd = true;
         }
-
     }
 
     public function savePersona()
@@ -158,11 +164,12 @@ class Personas extends Component
 
         //funcion que envia el correo
         $subject = 'Nuevo Registro';
+        $mensajeCorreo = 'El registro se a realizado correctamente';
         $nombre = $this->nombre;
         $apellido = $this->apellido;
         $cedula = $this->cedula;
         $email = auth()->user()->email;
-        Mail::to($email)->send(new notificacion($subject, $nombre, $apellido, $cedula, $code));
+        Mail::to($email)->send(new notificacion($subject, $mensajeCorreo, $nombre, $apellido, $cedula, $code));
 
         $mensaje = 'Se a realizado el registro de forma correcta.';
         $this->mensaje = $mensaje;
@@ -175,6 +182,73 @@ class Personas extends Component
         $resul = Persona::find($id);
         $this->codigo = $resul->idusuario;
         $this->codigoModal = true;
+    }
+
+    public function consulBorrarDocumento($id)
+    {
+        $resul = Historial::find($id);
+        $this->titulo = 'Alerta !!';
+        $this->resultado = 'Esta seguro de querer eliminar el documento '. $resul->nombreArchivo . 'una vez eliminado no podrá ser recuperado';
+        $this->idDoc = $resul->id;
+        $this->eliminaDocAlerta = true;
+    }
+
+    public function BorrarDocumento($id)
+    {
+        $this->eliminaDocAlerta = false;
+        $resul = Historial::find($id);
+        Storage::disk('public')->delete($resul->nombreArchivo);
+        $resul->delete();
+        $this->titulo = 'Borrado';
+        $this->resultado = 'El documento a sido borrado exitosamente';
+        $this->eliminado = true;
+    }
+
+    public function consulBorrarPerfil($id)
+    {
+        $resul = Persona::find($id);
+
+        $this->titulo = 'Alerta !!';
+        $this->resultado = 'Esta seguro de querer eliminar el perfil '. $resul->nombre .' '. $resul->apellido. ' una vez eliminado no podrá ser recuperado';
+        $this->idDoc = $resul->id;
+        $this->eliminaPerfilAlerta = true;
+    }
+
+    public function BorrarPersona($id)
+    {
+        $this->eliminaPerfilAlerta = false;
+
+        $resul = Persona::find($id);
+
+        //obtener listado de documentos
+        $documentos = Historial::where('codigo', $resul->idusuario)->get();
+
+        //almacenar documentos en un array
+        $array_de_archivos = [];
+        foreach($documentos as $documento) {
+            $array_de_archivos[] = $documento->nombreArchivo;
+        }
+        //eliminar documentos del servidos
+        Storage::disk('public')->delete($array_de_archivos);
+        //eliminar historial 
+        Historial::where('codigo', $resul->idusuario )->delete();
+
+        //funcion que envia el correo
+        $subject = 'Eliminar Registro';
+        $mensajeCorreo = 'El perfil a sido Eliminado Correctamente';
+        $nombre = $resul->nombre;
+        $apellido = $resul->apellido;
+        $cedula = $resul->cedula;
+        $code = $resul->idusuario;
+        $email = auth()->user()->email; // usuario autenticado
+        Mail::to($email)->send(new notificacion($subject, $mensajeCorreo, $nombre, $apellido, $cedula, $code));
+
+        //Eliminar perfil de persona 
+        $resul->delete();
+
+        $this->titulo = 'Perfil Eliminado';
+        $this->resultado = 'El perfil a sido Eliminado Correctamente';
+        $this->eliminado = true;
     }
     
 }

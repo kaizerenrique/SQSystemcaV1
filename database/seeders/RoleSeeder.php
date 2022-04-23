@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
 use App\Models\Configuracion;
+use App\Models\Contacto;
 
 class RoleSeeder extends Seeder
 {
@@ -70,10 +71,19 @@ class RoleSeeder extends Seeder
             'email_verified_at' => '2022-02-26 20:48:29'
         ])->assignRole('Usuario');
 
+        // configuracion por defecto
         Configuracion::create([
             'max_personas' => 6,
             'max_empresas' => 24,
             'email_system' => 'ohaymard@gmail.com'
+        ]);
+
+        //presentacion por defecto
+        Configuracion::create([
+            'nombre' => 'Nombre de la Empresa',
+            'rif' => 'J-12345678-9',
+            'telefono' => '(0286) 987 65 43'
+            'email' => 'ohaymard@gmail.com'
         ]);
     }
 }

@@ -22,8 +22,11 @@
                 <p class="text-lg text-gray-700 font-semibold mt-1">{{$persona->apellido}}</p>
                 <p class="text-lg text-gray-700 font-semibold mt-1">{{$persona->nac }}{{$persona->cedula }}</p>
                 <p class="text-lg text-gray-700 font-semibold mt-1">Código: {{$persona->idusuario }} </p>                
-                <button class="mt-10 w-full py-3 rounded-xl border border-purple-600 text-lg text-purple-600 hover:bg-purple-600 hover:text-gray-50" wire:click="mostrarCodigo({{$persona->id}})">
-                    Ver
+                <button class="mt-6 py-2 px-2 rounded-xl border border-purple-600 text-lg text-purple-600 hover:bg-purple-600 hover:text-gray-50" wire:click="mostrarCodigo({{$persona->id}})">
+                    Ver Código
+                </button>
+                <button class="mt-6 py-2 px-2 rounded-xl border border-purple-600 text-lg text-purple-600 hover:bg-purple-600 hover:text-gray-50" wire:click="consulBorrarPerfil({{$persona->id}})">
+                    Eliminar Perfil
                 </button>
             </card>                
         @endforeach       
@@ -69,6 +72,9 @@
                                 <a href="{{$historial->url_simbol}}" target="_blank">
                                     {{ __('Ver') }}
                                 </a>                                
+                            </x-jet-button> 
+                            <x-jet-button class="bg-red-500 hover:bg-red-700" wire:click="consulBorrarDocumento({{$historial->id}})">
+                                {{ __('Eliminar') }}
                             </x-jet-button>                           
                         </td>                       
                     </tr>
@@ -216,6 +222,63 @@
             <x-jet-secondary-button wire:click="$toggle('codigoModal', false)" wire:loading.attr="disabled">
                 {{ __('Aceptar') }}
             </x-jet-secondary-button>
+        </x-slot>
+    </x-jet-dialog-modal>
+
+<!-- Inicio del Modal para Alerta Eliminar Documento -->
+    <x-jet-dialog-modal wire:model="eliminaDocAlerta">
+        <x-slot name="title">
+            {{$titulo}}
+        </x-slot>
+
+        <x-slot name="content">
+            {{$resultado}}             
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$toggle('eliminaDocAlerta', false)" wire:loading.attr="disabled">
+                {{ __('Cancelar') }}
+            </x-jet-secondary-button>
+            <x-jet-danger-button class="ml-3" wire:click="BorrarDocumento({{$idDoc}})" wire:loading.attr="disabled">
+                {{ __('Eliminar') }}
+            </x-jet-danger-button>
+        </x-slot>
+    </x-jet-dialog-modal>
+
+<!-- Inicio del Modal para mostrar el codigo -->
+    <x-jet-dialog-modal wire:model="eliminado">
+        <x-slot name="title">
+            {{ __($titulo) }}
+        </x-slot>
+
+        <x-slot name="content">
+              {{$resultado}}
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$toggle('eliminado', false)" wire:loading.attr="disabled">
+                {{ __('Aceptar') }}
+            </x-jet-secondary-button>
+        </x-slot>
+    </x-jet-dialog-modal>
+
+<!-- Inicio del Modal para Alerta Eliminar Documento -->
+    <x-jet-dialog-modal wire:model="eliminaPerfilAlerta">
+        <x-slot name="title">
+            {{$titulo}}
+        </x-slot>
+
+        <x-slot name="content">
+            {{$resultado}}             
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$toggle('eliminaPerfilAlerta', false)" wire:loading.attr="disabled">
+                {{ __('Cancelar') }}
+            </x-jet-secondary-button>
+            <x-jet-danger-button class="ml-3" wire:click="BorrarPersona({{$idDoc}})" wire:loading.attr="disabled">
+                {{ __('Eliminar') }}
+            </x-jet-danger-button>
         </x-slot>
     </x-jet-dialog-modal>
 

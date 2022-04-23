@@ -12,6 +12,7 @@ class notificacion extends Mailable
     use Queueable, SerializesModels;
 
     public $subject;
+    private $mensajeCorreo;
     private $nombre;
     private $apellido;
     private $cedula;
@@ -22,9 +23,10 @@ class notificacion extends Mailable
      *
      * @return void
      */
-    public function __construct($subject, $nombre, $apellido, $cedula, $code)
+    public function __construct($subject, $mensajeCorreo, $nombre, $apellido, $cedula, $code)
     {
         $this->subject = $subject;
+        $this->mensajeCorreo = $mensajeCorreo;
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->cedula = $cedula;
@@ -38,6 +40,6 @@ class notificacion extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail.notificacion', ['nombre' => $this->nombre, 'apellido' => $this->apellido, 'cedula' => $this->cedula, 'code' =>$this->code ]);
+        return $this->markdown('mail.notificacion', ['mensajeCorreo' => $this->mensajeCorreo,'nombre' => $this->nombre, 'apellido' => $this->apellido, 'cedula' => $this->cedula, 'code' =>$this->code ]);
     }
 }
