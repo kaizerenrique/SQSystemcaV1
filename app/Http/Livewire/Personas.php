@@ -40,6 +40,8 @@ class Personas extends Component
     public $eliminaDocAlerta = false;
     public $eliminado = false;
     public $eliminaPerfilAlerta = false;
+    public $mensajeModalMenor = false;
+    public $registroModalMenor = false;
    
     public function render()
     {
@@ -87,7 +89,6 @@ class Personas extends Component
     }
 
     //comprobamos is la cedula esta o no en la base de datos
-    //comprobamos si la cedula esta registrada en el CNE
     public function comprobarCedula()
     { 
 
@@ -104,7 +105,6 @@ class Personas extends Component
             $this->mensaje = $mensaje;
             $this->mensajeModal = true;            
         } elseif (Persona::where('cedula', $cedula)->exists() == null) {
-            //Si el usuario esta registrado en el CNE tomamos su nombre para colocar en el formulario
             $this->modalCedula = false;
 
             $this->nac = $nac;
@@ -134,7 +134,7 @@ class Personas extends Component
             'nac' => 'required',
             'cedula' => 'required|numeric|integer|digits_between:6,8',
             'pasaporte' => 'nullable|string|min:4',
-            'fnacimiento' => 'date',
+            'fnacimiento' => 'before:date',
             'sexo' => 'required|in:Femenino,Masculino',
             'nrotelefono' => 'nullable|string|min:12|max:15',
             'direccion' => 'required|string|min:8|max:200',
@@ -249,6 +249,98 @@ class Personas extends Component
         $this->titulo = 'Perfil Eliminado';
         $this->resultado = 'El perfil a sido Eliminado Correctamente';
         $this->eliminado = true;
+    }
+
+    //Agregar menores de Edad sin Cedula
+    public function menorSinCedula()
+    {
+        //consultar el numero de registros que tiene el usuario
+        $num =  Persona::where('user_id', auth()->user()->id)->count();
+        //establecer un limite para los registros
+        $config = Configuracion::first();
+        $lin = $config->max_personas;
+
+        //si el limite a sido alcanzado se procede a enviar un mensaje notificando que el limite fue alcanzado
+        //de lo contrario se procede con el registro
+        if ($num == $lin) {
+            $mensaje = 'A alcanzado el numero limite de registros disponibles para su cuenta';
+            $this->mensaje = $mensaje;
+            $this->mensajeModal = true; 
+        } else {    
+            $this->titulo = 'Información';
+            $this->mensaje = 'El sistema asignara un numero de identificación para el menor de edad. 
+            Una vez el menor tenga su Cedula de Identidad podrá cambiar este identificador por su numero de cedula.';
+            $this->mensajeModalMenor = true; 
+        }  
+    }
+
+    public function agregarMenorSinCedula()
+    {
+        $this->mensajeModalMenor = false;
+
+        $this->reset(['nombre']);
+        $this->reset(['apellido']);
+        $this->reset(['fnacimiento']);
+        $this->reset(['nrotelefono']);
+        $this->reset(['direccion']);
+        $this->registroModalMenor = true;
+    }
+
+    public function saveMenorSinCedula()
+    {
+        //validar
+        $this->validate([
+            'nombre' => 'required|string|min:3',
+            'apellido' => 'required|string|min:4',
+            'fnacimiento' => 'before:date',
+            'sexo' => 'required|in:Femenino,Masculino',
+            'direccion' => 'required|string|min:8|max:200',
+        ]);
+
+
+        
+        // generar codigo de  7 digitos y comprobar que no se repita
+        do {
+            $code = Str::random(7);    
+        } while (Persona::where('idusuario', $code)->exists());
+
+        //generar identificador para menor de edad sin cedula
+        $nac = 'V';
+        do {
+            $numero_aleatorio = rand(1,999999);
+            $msc = 'MSC-'.$numero_aleatorio;    
+        } while (Persona::where('cedula', $msc)->exists());
+
+        //guardar perfil            
+        auth()->user()->personas()->create([ 
+            'idusuario' => $code,           
+            'nombre' => $this->nombre,
+            'apellido' => $this->apellido,
+            'nac' => $nac,
+            'cedula' => $msc,
+            'sexo' => $this->sexo,
+            'pasaporte' => $this->pasaporte ?? null,
+            'fnacimiento' => $this->fnacimiento,
+            'nrotelefono' => $this->nrotelefono ?? null,
+            'direccion' => $this->direccion,
+        ]);
+        
+        $this->registroModalMenor = false;
+
+        //funcion que envia el correo
+        $subject = 'Se a registrado un Menor sin Cedula ';
+        $mensajeCorreo = 'El registro se a realizado correctamente';
+        $nombre = $this->nombre;
+        $apellido = $this->apellido;
+        $cedula = $msc;
+        $email = auth()->user()->email;
+        Mail::to($email)->send(new notificacion($subject, $mensajeCorreo, $nombre, $apellido, $cedula, $code));
+
+        
+        $this->mensaje = 'Se a realizado el registro de forma correcta.';
+        $this->mensajeModal = true; 
+
+
     }
     
 }

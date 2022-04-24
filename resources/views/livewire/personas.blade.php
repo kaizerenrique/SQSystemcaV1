@@ -6,8 +6,11 @@
                 Registrar perfiles
             </div>
             <div class="mr-2">
+                <x-jet-button class="bg-indigo-500 hover:bg-indigo-700" wire:click="menorSinCedula" >
+                    {{ __('Registrar Menos Sin Cedula') }}
+                </x-jet-button>
                 <x-jet-button class="bg-indigo-500 hover:bg-indigo-700" wire:click="agregarPerfil" >
-                    {{ __('Registro') }}
+                    {{ __('Registrar Persona') }}
                 </x-jet-button>
             </div>
         </div>        
@@ -281,6 +284,80 @@
             </x-jet-danger-button>
         </x-slot>
     </x-jet-dialog-modal>
+
+<!-- Inicio del Modal imformacion al agregar un menor  -->
+    <x-jet-dialog-modal wire:model="mensajeModalMenor">
+        <x-slot name="title">
+            {{$titulo}}
+        </x-slot>
+
+        <x-slot name="content">            
+            {{$mensaje}}            
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$toggle('mensajeModalMenor', false)" wire:loading.attr="disabled">
+                {{ __('Cancelar') }}
+            </x-jet-secondary-button>
+            <x-jet-danger-button class="ml-3" wire:click="agregarMenorSinCedula" wire:loading.attr="disabled">
+                {{ __('Aceptar') }}
+            </x-jet-danger-button>
+        </x-slot>
+    </x-jet-dialog-modal>
+
+    <x-jet-dialog-modal wire:model="registroModalMenor">
+            <x-slot name="title">
+                {{'Registrar Menos Sin Cedula'}}
+            </x-slot>
+
+            <x-slot name="content">                
+                <div class="grid grid-cols-4 gap-4 text-sm text-gray-600">
+                    <div class="col-span-4 sm:col-span-2">
+                        <x-jet-label for="name" value="{{ __('Nombre') }}" />
+                        <x-jet-input id="nombre" type="text" class="mt-1 block w-full" wire:model.defer="nombre"/>
+                        <x-jet-input-error for="nombre" class="mt-2" />
+                    </div>
+                    <div class="col-span-4 sm:col-span-2">
+                        <x-jet-label for="apellido" value="{{ __('Apellido') }}" />
+                        <x-jet-input id="apellido" type="text" class="mt-1 block w-full" wire:model.defer="apellido"/>
+                        <x-jet-input-error for="apellido" class="mt-2" />
+                    </div>
+                    <div class="col-span-4 sm:col-span-2">
+                        <x-jet-label for="fnacimiento" value="{{ __('Fecha de Nacimiento') }}" />
+                        <x-jet-input id="fnacimiento" type="date" class="mt-1 block w-full" wire:model.defer="fnacimiento" />
+                        <x-jet-input-error for="fnacimiento" class="mt-2" />
+                    </div>
+                    <div class="col-span-4 sm:col-span-2">
+                        <x-jet-label for="campsexo" value="{{ __('Sexo') }}" />
+                            <select name="sexo" id="sexo" wire:model.defer="sexo" class="mt-1 block w-full"> 
+                                <option value="" selected>Selecciona el Sexo</option>                                                                         
+                                <option value="Femenino">Femenino</option>
+                                <option value="Masculino">Masculino</option>
+                            </select> 
+                        <x-jet-input-error for="sexo" class="mt-2" />                   
+                    </div>
+                    <div class="col-span-4 sm:col-span-2">
+                        <x-jet-label for="ntelefono" value="{{ __('Numero de Teléfono ') }}" />
+                        <x-jet-input id=">nrotelefono" type="text" class="mt-1 block w-full" wire:model.defer="nrotelefono"/>
+                        <x-jet-input-error for="nrotelefono" class="mt-2" />
+                    </div>                    
+                    <div class="col-span-4 sm:col-span-4">
+                        <x-jet-label for="direccion" value="{{ __('Dirección') }}" />
+                        <x-jet-input id=">direccion" type="text" class="mt-1 block w-full" wire:model.defer="direccion"/>
+                        <x-jet-input-error for="direccion" class="mt-2" />
+                    </div>
+                </div>
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('registroModalMenor', false)" wire:loading.attr="disabled">
+                    {{ __('Cancelar') }}
+                </x-jet-secondary-button>
+                <x-jet-danger-button class="ml-3" wire:click="saveMenorSinCedula()" wire:loading.attr="disabled">
+                    {{ __('Guardar') }}
+                </x-jet-danger-button>
+            </x-slot>
+        </x-jet-dialog-modal>
 
 </div>
 
