@@ -307,7 +307,7 @@ class Personas extends Component
         //generar identificador para menor de edad sin cedula
         $nac = 'V';
         do {
-            $numero_aleatorio = rand(1,999999);
+            $numero_aleatorio = rand(1,9999999);
             $msc = 'MSC-'.$numero_aleatorio;    
         } while (Persona::where('cedula', $msc)->exists());
 

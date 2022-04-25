@@ -116,7 +116,8 @@ class ApiController extends Controller
     }
 
     //esta funcion genera url simbolicas para el sistema qr
-    public function generadorDeEnlaces(){
+    public function generadorDeEnlaces()
+    {
         
         do {
             $dinamicoUrl = Str::random(21);
@@ -135,7 +136,7 @@ class ApiController extends Controller
             ]);        
     }
 
-
+    //funcion para subir documentos
     public function doc(Request $request)
     {
         if (Historial::where('url_simbol', $request->url_simbol)->exists()) {
@@ -183,5 +184,36 @@ class ApiController extends Controller
                 "data" => $historial
             ]);
         }
-    }    
+    } 
+
+    //funcion para generar codigo
+    public function generarCodigoNuevo()
+    {
+        // generar codigo de  7 digitos y comprobar que no se repita
+        do {
+            $code = Str::random(7);    
+        } while (Persona::where('idusuario', $code)->exists());
+
+        return response([
+            "status" => 200,
+            "ms" => "Exitoso",
+            "data" => $code
+        ]);
+    }
+
+    public function generarTokenMenorSinCedula()
+    {
+        //generar identificador para menor de edad sin cedula
+        do {
+            $numero_aleatorio = rand(1,9999999);
+            $msc = 'MSC-'.$numero_aleatorio;    
+        } while (Persona::where('cedula', $msc)->exists());
+
+        return response([
+            "status" => 200,
+            "ms" => "Exitoso",
+            "data" => $msc
+        ]);
+    }
+
 }

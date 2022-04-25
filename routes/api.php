@@ -37,3 +37,7 @@ Route::get('/generadorDeEnlaces',[ApiController::class,'generadorDeEnlaces'])->m
 Route::get('/cedulaInfo/{cedula}',[ApiController::class,'cedulaInfo'])->middleware('auth:sanctum');
 
 Route::post('documento',[ApiController::class,'doc'])->middleware('auth:sanctum');
+
+Route::get('/codigonuevo',[ApiController::class,'generarCodigoNuevo'])->middleware('auth:sanctum');
+
+Route::get('/tokenmenorsincedula',[ApiController::class,'generarTokenMenorSinCedula'])->middleware('auth:sanctum');
