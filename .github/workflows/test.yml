@@ -33,7 +33,7 @@ jobs:
         script: |
           whoami
           cd /var/www/html/SQSystemcaV1
-          server_deploy.sh
+          git fetch origin main
           
         
           
