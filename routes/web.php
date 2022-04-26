@@ -36,6 +36,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/configuracion', function 
     return view('configuracion');
 })->name('configuracion');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/estadistica', function () {
+    return view('estadistica');
+})->name('estadistica');
+
 //ruta para documentos
 Route::get('/documentos/{url_code}', function ($url_code) {
     $respuesta = Historial::where("url_code", $url_code)->first();    

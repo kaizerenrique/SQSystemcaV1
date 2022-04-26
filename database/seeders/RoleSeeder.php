@@ -25,8 +25,12 @@ class RoleSeeder extends Seeder
         $user = Role::create(['name' => 'Usuario']); //Usuario Final
 
         //Permisos del Sistema
-        Permission::create(['name' => 'usuarios'])->syncRoles([$admin]);
-        Permission::create(['name' => 'generadorTokensApi'])->syncRoles([$admin, $labor]);
+        //Permisos de la barra del menu
+        Permission::create(['name' => 'menuUsuarios'])->syncRoles([$admin]);
+        Permission::create(['name' => 'menuConfiguracion'])->syncRoles([$admin]);
+        Permission::create(['name' => 'menuEstadisticas'])->syncRoles([$labor]);        
+        Permission::create(['name' => 'menuPersonas'])->syncRoles([$admin, $labor, $user]);
+        Permission::create(['name' => 'generadorTokensApi'])->syncRoles([$admin, $labor]);  
 
         //usuario
         User::create([

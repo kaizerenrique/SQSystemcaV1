@@ -16,24 +16,34 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                 </div>
-                @if(auth()->user()->can('usuarios'))
+                @if(auth()->user()->can('menuUsuarios'))
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{ route('usuarios') }}" :active="request()->routeIs('usuarios')">
                             {{ __('Usuarios') }}
                         </x-jet-nav-link>
                     </div>
                 @endif
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('personas') }}" :active="request()->routeIs('personas')">
-                        {{ __('Personas') }}
-                    </x-jet-nav-link>
-                </div>
-
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('configuracion') }}" :active="request()->routeIs('configuracion')">
-                        {{ __('Configuracion') }}
-                    </x-jet-nav-link>
-                </div>
+                @if(auth()->user()->can('menuPersonas'))
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('personas') }}" :active="request()->routeIs('personas')">
+                            {{ __('Personas') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endif
+                @if(auth()->user()->can('menuEstadisticas'))
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('estadistica') }}" :active="request()->routeIs('estadistica')">
+                            {{ __('Estadísticas') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endif
+                @if(auth()->user()->can('menuConfiguracion'))
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('configuracion') }}" :active="request()->routeIs('configuracion')">
+                            {{ __('Configuracion') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endif
 
             </div>
 
@@ -162,24 +172,34 @@
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
         </div>
-        @if(auth()->user()->can('usuarios'))
-        <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('usuarios') }}" :active="request()->routeIs('usuarios')">
-                {{ __('Usuarios') }}
-            </x-jet-responsive-nav-link>
-        </div>
+        @if(auth()->user()->can('menuUsuarios'))
+            <div class="pt-2 pb-3 space-y-1">
+                <x-jet-responsive-nav-link href="{{ route('usuarios') }}" :active="request()->routeIs('usuarios')">
+                    {{ __('Usuarios') }}
+                </x-jet-responsive-nav-link>
+            </div>
         @endif
-        <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('personas') }}" :active="request()->routeIs('personas')">
-                {{ __('Personas') }}
-            </x-jet-responsive-nav-link>
-        </div>
-
-        <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('configuracion') }}" :active="request()->routeIs('configuracion')">
-                {{ __('Configuracion') }}
-            </x-jet-responsive-nav-link>
-        </div>
+        @if(auth()->user()->can('menuPersonas'))
+            <div class="pt-2 pb-3 space-y-1">
+                <x-jet-responsive-nav-link href="{{ route('personas') }}" :active="request()->routeIs('personas')">
+                    {{ __('Personas') }}
+                </x-jet-responsive-nav-link>
+            </div>
+        @endif
+        @if(auth()->user()->can('menuEstadisticas'))
+            <div class="pt-2 pb-3 space-y-1">
+                <x-jet-responsive-nav-link href="{{ route('estadistica') }}" :active="request()->routeIs('estadistica')">
+                    {{ __('Estadísticas') }}
+                </x-jet-responsive-nav-link>
+            </div>
+        @endif
+        @if(auth()->user()->can('menuConfiguracion'))
+            <div class="pt-2 pb-3 space-y-1">
+                <x-jet-responsive-nav-link href="{{ route('configuracion') }}" :active="request()->routeIs('configuracion')">
+                    {{ __('Configuracion') }}
+                </x-jet-responsive-nav-link>
+            </div>
+        @endif
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
