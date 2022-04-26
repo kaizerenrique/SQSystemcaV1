@@ -32,4 +32,5 @@ jobs:
         key: ${{ secrets.PASSWORD }}
         script: |
           whoami
+          cd /var/www/html/
           ls -al
