@@ -30,6 +30,10 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.PASSWORD }}
-        run: "cd /var/www/html/SQSystemcaV1 && ./server_deploy.sh"
+        script: |
+          whoami
+          cd /var/www/html/SQSystemcaV1
+          server_deploy.sh
+          
         
           
