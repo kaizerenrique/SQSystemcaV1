@@ -158,6 +158,8 @@ class ApiController extends Controller
             } while (Historial::where('nombreArchivo', $imageName )->exists());
             
             $code = $request->code;
+            $nombreyapellido = $request->nombreyapellido;
+            $cedula = $request->cedula;
             $persona_id = $request->persona_id;
             $url_simbol = $request->url_simbol;
             $url_code = $request->url_code;
@@ -168,7 +170,9 @@ class ApiController extends Controller
             $url_documento = Storage::disk('public')->url($imageName);
 
             $historial = Historial::create([ 
-                'persona_id' => $persona_id,           
+                'persona_id' => $persona_id,
+                'nombreyapellido' => $nombreyapellido,
+                'cedula' => $cedula,           
                 'codigo' => $code,
                 'nombreArchivo' => $imageName,
                 'url_simbol' => $url_simbol,

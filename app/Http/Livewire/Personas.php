@@ -134,7 +134,7 @@ class Personas extends Component
             'nac' => 'required',
             'cedula' => 'required|numeric|integer|digits_between:6,8',
             'pasaporte' => 'nullable|string|min:4',
-            'fnacimiento' => 'before:date',
+            'fnacimiento' => 'date',
             'sexo' => 'required|in:Femenino,Masculino',
             'nrotelefono' => 'nullable|string|min:12|max:15',
             'direccion' => 'required|string|min:8|max:200',

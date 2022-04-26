@@ -79,10 +79,10 @@ class RoleSeeder extends Seeder
         ]);
 
         //presentacion por defecto
-        Configuracion::create([
+        Contacto::create([
             'nombre' => 'Nombre de la Empresa',
             'rif' => 'J-12345678-9',
-            'telefono' => '(0286) 987 65 43'
+            'telefono' => '(0286) 987 65 43',
             'email' => 'ohaymard@gmail.com'
         ]);
     }

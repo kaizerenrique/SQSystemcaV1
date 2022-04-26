@@ -10,10 +10,11 @@ class Historial extends Model
 {
     use HasFactory;
 
-    protected $fillable =['persona_id','codigo','nombreArchivo','url_simbol','url_code','url_documento','user_id','nombreLaboratorio'];
+    protected $fillable =['persona_id','nombreyapellido','cedula','codigo','nombreArchivo','url_simbol','url_code','url_documento','user_id','nombreLaboratorio'];
 
     public function persona()
     {
         return $this->belongsTo(Persona::class);
     }
 }
+

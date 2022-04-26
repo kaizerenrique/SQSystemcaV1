@@ -47,6 +47,12 @@
             <thead>
                 <tr class="bg-indigo-500 text-white">
                     <th class="px-4 py-2">
+                        <div class="flex items-center">Nombre</div>
+                    </th>
+                    <th class="px-4 py-2">
+                        <div class="flex items-center">Cedula</div>
+                    </th>                    
+                    <th class="px-4 py-2">
                         <div class="flex items-center">Código</div>
                     </th>
                     <th class="px-4 py-2">
@@ -62,7 +68,9 @@
             </thead>
             <tbody>
                 @foreach($historials as $historial)
-                    <tr>                        
+                    <tr>
+                        <td class="rounded border px-4 py-2">{{$historial->nombreyapellido}}</td> 
+                        <td class="rounded border px-4 py-2">{{$historial->cedula}}</td>                                               
                         <td class="rounded border px-4 py-2">{{$historial->codigo}}</td>
                         <td class="rounded border px-4 py-2">
                             <a href="{{$historial->url_simbol}}" target="_blank">

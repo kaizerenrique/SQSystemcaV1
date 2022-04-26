@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('historials', function (Blueprint $table) {
             $table->id();
             $table->integer('persona_id')->index();
+            $table->string('nombreyapellido',200);
+            $table->string('cedula',12)->nullable();
             $table->string('codigo',8);//codigo del usuario
             $table->string('nombreArchivo',120);
             $table->string('url_simbol', 2048)->nullable();
