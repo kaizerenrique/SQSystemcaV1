@@ -29,5 +29,5 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
+        key: ${{ secrets.PASSWORD }}
         script: 'cd /var/www/html/SQSystemcaV1 && ./server_deploy.sh'
