@@ -42,7 +42,13 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/estadistica', function ()
 
 //ruta para documentos
 Route::get('/documentos/{url_code}', function ($url_code) {
-    $respuesta = Historial::where("url_code", $url_code)->first();    
-    $url_documento = $respuesta->url_documento;
-    return Redirect::to($url_documento);       
+
+    if (Historial::where("url_code", $url_code)->exists()) {
+        $respuesta = Historial::where("url_code", $url_code)->first();    
+        $url_documento = $respuesta->url_documento;
+        return Redirect::to($url_documento); 
+    }else{
+        return view('welcome');
+    }
+          
 });
