@@ -34,3 +34,5 @@ jobs:
           whoami
           cd /var/www/html/SQSystemcaV1
           ls -al
+          ./server_deploy.sh
+          
