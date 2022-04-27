@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use App\Mail\mailRegistroLaboratorio;
-use App\Models\Historial;
+use App\Http\Controllers\ConsultaController;
+use App\Http\Controllers\DocumentosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,15 +41,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/estadistica', function ()
     return view('estadistica');
 })->name('estadistica');
 
-//ruta para documentos
-Route::get('/documentos/{url_code}', function ($url_code) {
+Route::get('/documentos/{url_code}', [DocumentosController::class, 'show']);
 
-    if (Historial::where("url_code", $url_code)->exists()) {
-        $respuesta = Historial::where("url_code", $url_code)->first();    
-        $url_documento = $respuesta->url_documento;
-        return Redirect::to($url_documento); 
-    }else{
-        return view('welcome');
-    }
-          
-});
+Route::get('/consulta', [ConsultaController::class, 'index'])->name('consulta');
+
+Route::get('/consulta/{info}', [ConsultaController::class, 'show']);
