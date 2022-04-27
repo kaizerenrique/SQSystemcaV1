@@ -292,7 +292,7 @@ class Personas extends Component
         $this->validate([
             'nombre' => 'required|string|min:3',
             'apellido' => 'required|string|min:4',
-            'fnacimiento' => 'before:date',
+            'fnacimiento' => 'date',
             'sexo' => 'required|in:Femenino,Masculino',
             'direccion' => 'required|string|min:8|max:200',
         ]);

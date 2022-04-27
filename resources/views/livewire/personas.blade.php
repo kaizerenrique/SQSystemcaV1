@@ -23,7 +23,7 @@
                 <p class="text-center text-xl text-gray-700 font-semibold py-3">Perfil de Usuario</p>
                 <p class="text-lg text-gray-700 font-semibold mt-1">{{$persona->nombre }}</p>
                 <p class="text-lg text-gray-700 font-semibold mt-1">{{$persona->apellido}}</p>
-                <p class="text-lg text-gray-700 font-semibold mt-1">{{$persona->nac }}{{$persona->cedula }}</p>
+                <p class="text-lg text-gray-700 font-semibold mt-1">{{$persona->cedula }}</p>
                 <p class="text-lg text-gray-700 font-semibold mt-1">Código: {{$persona->idusuario }} </p>                
                 <button class="mt-6 py-2 px-2 rounded-xl border border-purple-600 text-lg text-purple-600 hover:bg-purple-600 hover:text-gray-50" wire:click="mostrarCodigo({{$persona->id}})">
                     Ver Código

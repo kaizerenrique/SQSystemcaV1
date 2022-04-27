@@ -45,4 +45,4 @@ Route::get('/documentos/{url_code}', [DocumentosController::class, 'show']);
 
 Route::get('/consulta', [ConsultaController::class, 'index'])->name('consulta');
 
-Route::get('/consulta/{info}', [ConsultaController::class, 'show']);
+Route::post('/consulta', [ConsultaController::class, 'show'])->name('consulta.show');

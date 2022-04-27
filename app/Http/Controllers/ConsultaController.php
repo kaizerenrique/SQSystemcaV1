@@ -45,9 +45,13 @@ class ConsultaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($info)
+    public function show(Request $request)
     {
+        $request->validate([
+            'cedula' => 'required',
+        ]);
 
+        $info = $request->cedula;
         if (Persona::where('cedula', $info)->exists()) {            
             if (Historial::where('cedula', $info)->exists()) {
                 $respuesta = Historial::where('cedula', $info)->first();    
