@@ -52,16 +52,12 @@ class ConsultaController extends Controller
         ]);
 
         $info = $request->cedula;
-        if (Persona::where('cedula', $info)->exists()) {            
-            if (Historial::where('cedula', $info)->exists()) {
+
+        if (Historial::where('cedula', $info)->exists()) {
                 $respuesta = Historial::where('cedula', $info)->first();    
                 $url_documento = $respuesta->url_documento;
                 return redirect($url_documento);
-            }else{
-                $mensaje = 'El número de cédula '.$info.' está asociado a un perfil pero no posee documentos cargados en el sistema.';
-                return view('consultaCedula.show',['info' => $mensaje]);
-            }
-        }else {            
+        }else{
             $mensaje = 'No se ha encontrado documento asociado al número de cédula: '.$info;
             return view('consultaCedula.show',['info' => $mensaje]);
         }
