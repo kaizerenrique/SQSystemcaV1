@@ -54,9 +54,14 @@ class ConsultaController extends Controller
         $info = $request->cedula;
 
         if (Historial::where('cedula', $info)->exists()) {
-                $respuesta = Historial::where('cedula', $info)->first();    
-                $url_documento = $respuesta->url_documento;
-                return redirect($url_documento);
+                //$respuesta = Historial::where('cedula', $info)->first();    
+                //$url_documento = $respuesta->url_documento;
+                //return redirect($url_documento);
+            $historials = Historial::where('cedula', $info)
+                ->orderBy('id','desc')
+                ->paginate(5);
+                
+            return view('consultaCedula.resultados',['historials' => $historials]);
         }else{
             $mensaje = 'No se ha encontrado documento asociado al número de cédula: '.$info;
             return view('consultaCedula.show',['info' => $mensaje]);
