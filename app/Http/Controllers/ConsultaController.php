@@ -60,8 +60,10 @@ class ConsultaController extends Controller
             $historials = Historial::where('cedula', $info)
                 ->orderBy('id','desc')
                 ->paginate(5);
-                
-            return view('consultaCedula.resultados',['historials' => $historials]);
+            $persona = Historial::where('cedula', $info)->first();
+            $nombre = $persona->nombreyapellido;
+            $cedula = $persona->cedula;   
+            return view('consultaCedula.resultados',['historials' => $historials,'nombre' => $nombre,'cedula' => $cedula]);
         }else{
             $mensaje = 'No se ha encontrado documento asociado al número de cédula: '.$info;
             return view('consultaCedula.show',['info' => $mensaje]);

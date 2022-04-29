@@ -2585,6 +2585,10 @@ select {
     width: 33.333333%;
   }
 
+  .md\:table-fixed {
+    table-layout: fixed;
+  }
+
   .md\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
