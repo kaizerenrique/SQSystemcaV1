@@ -7,4 +7,4 @@
 </a>
 -->
 
-<img src="{{asset('/plantilla/LOGOSQintro.png')}}" alt="" style="width:200px;">
+<img src="{{asset('/plantilla/Logoqslab2.png')}}" alt="" style="width:200px;">
