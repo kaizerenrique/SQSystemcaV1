@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>
-      SQ System C.A
+      QSLAB SISTEMAS
     </title>
     <meta name="description" content="Sitio Web de SQ System C.A " />
     <meta name="keywords" content="" />
@@ -26,7 +26,7 @@
       <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
         <div class="pl-4 flex items-center">
           <a class="toggleColour text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">           
-            SQ System C.A
+            QSLAB SISTEMAS
           </a>
         </div>
         <div class="block lg:hidden pr-4">
@@ -70,7 +70,7 @@
         <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
           <p class="uppercase tracking-loose w-full">Bienvenidos!</p>
           <h1 class="my-4 text-5xl font-bold leading-tight">
-            SQ System c.a  
+            QSLAB SISTEMAS
           </h1>
           <p class="leading-normal text-2xl mb-8">
             Casa desarrolladora de Software para Laboratorio Clínico.
