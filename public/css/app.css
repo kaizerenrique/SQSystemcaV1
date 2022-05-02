@@ -1161,6 +1161,9 @@ select {
 .hidden {
   display: none;
 }
+.aspect-auto {
+  aspect-ratio: auto;
+}
 .h-5 {
   height: 1.25rem;
 }
@@ -1188,8 +1191,14 @@ select {
 .h-20 {
   height: 5rem;
 }
+.h-96 {
+  height: 24rem;
+}
 .h-1 {
   height: 0.25rem;
+}
+.max-h-full {
+  max-height: 100%;
 }
 .min-h-screen {
   min-height: 100vh;
@@ -2071,6 +2080,9 @@ select {
 }
 .ease-in {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+.hover\:h-full:hover {
+  height: 100%;
 }
 .hover\:-translate-y-1:hover {
   --tw-translate-y: -0.25rem;

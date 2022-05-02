@@ -46,3 +46,5 @@ Route::get('/documentos/{url_code}', [DocumentosController::class, 'show']);
 Route::get('/consulta', [ConsultaController::class, 'index'])->name('consulta');
 
 Route::post('/consulta', [ConsultaController::class, 'show'])->name('consulta.show');
+
+Route::get('/consulta/{nombreDocumento}', [ConsultaController::class, 'verDocumento'])->name('consulta.verDocumento');
