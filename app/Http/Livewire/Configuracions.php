@@ -7,12 +7,15 @@ use App\Models\Configuracion;
 use App\Models\Persona;
 use App\Models\Historial;
 use App\Models\User;
+use App\Models\Contacto;
 use Spatie\Permission\Models\Role;
 
 class Configuracions extends Component
 {
     public $configuracion = false;
-    public Configuracion $confi;    
+    public Configuracion $confi;
+    public $contac;
+    public $contactomodal = false;    
 
     public function render()
     {   
@@ -23,6 +26,8 @@ class Configuracions extends Component
         $laboratorio = User::role('Laboratorio')->count(); //usuarios laboratorios
         $personas_count = Persona::count(); //perfiles 
         $historias_count = Historial::count(); //historias
+
+        $contacto = Contacto::first();
         
         return view('livewire.configuracions',[
             'config' => $config,
@@ -31,6 +36,7 @@ class Configuracions extends Component
             'historias_count' => $historias_count,
             'laboratorio' => $laboratorio,
             'usuarios' => $usuarios,
+            'contacto' => $contacto,
         ]);
     }
 
@@ -52,5 +58,28 @@ class Configuracions extends Component
         $this->confi->save();
         $this->configuracion = false;
     }
-    
+
+    public function configuracionEmpresa($id)
+    {
+        $contac = Contacto::find($id);
+
+        $this->nombre = $contac->nombre;
+        $this->rif = $contac->rif;
+        $this->telefono = $contac->telefono;
+        $this->email = $contac->email;
+        $this->direccion = $contac->direccion;
+        $this->social_media1 = $contac->social_media1;
+        $this->social_media2 = $contac->social_media2;
+        $this->social_media3 = $contac->social_media3;
+        $this->social_media4 = $contac->social_media4;
+        $this->social_media5 = $contac->social_media5;
+        $this->social_media6 = $contac->social_media6;
+        
+        $this->contactomodal = true;
+    }
+
+    public function empresaGuardar()
+    {
+
+    }
 }
