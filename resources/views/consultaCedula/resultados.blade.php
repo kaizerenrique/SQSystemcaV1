@@ -32,7 +32,7 @@
                                     <td class="rounded border px-4 py-2">{{$historial->nombreLaboratorio}}</td> 
                                     <td class="rounded border px-4 py-2">                                        
                                         <x-jet-button class="bg-green-500 hover:bg-green-700">
-                                            <a href="{{ route('consulta.verDocumento', $historial->nombreArchivo)}}">
+                                            <a href="{{ route('consulta.verDocumento', $historial->nombreArchivo)}}" target="_blank">
                                                 {{ __('Ver') }}
                                             </a>                                
                                         </x-jet-button>                                                                 
