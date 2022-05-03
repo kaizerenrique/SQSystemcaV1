@@ -59,9 +59,9 @@ class Configuracions extends Component
         $this->configuracion = false;
     }
 
-    public function configuracionEmpresa($id)
+    public function configuracionEmpresa()
     {
-        $contac = Contacto::find($id);
+        $contac = Contacto::first();
 
         $this->nombre = $contac->nombre;
         $this->rif = $contac->rif;
@@ -80,6 +80,36 @@ class Configuracions extends Component
 
     public function empresaGuardar()
     {
+        $this->validate([
+            'nombre' => 'required|string|min:3',
+            'rif' => 'required',
+            'telefono' => 'nullable|string|min:10|max:15',
+            'email' => 'required',
+            'direccion' => 'required|string|min:8|max:200',
+            'social_media1' => 'nullable|string',
+            'social_media2' => 'nullable|string',
+            'social_media3' => 'nullable|string',
+            'social_media4' => 'nullable|string',
+            'social_media5' => 'nullable|string',
+            'social_media6' => 'nullable|string',
+        ]);
 
+        $contac = Contacto::first();
+
+        $contac ->update([
+            'nombre' => $this->nombre,
+            'rif' => $this->rif,
+            'telefono' => $this->telefono,
+            'email' => $this->email,
+            'direccion' => $this->direccion,
+            'social_media1' => $this->social_media1,
+            'social_media2' => $this->social_media2,
+            'social_media3' => $this->social_media3,
+            'social_media4' => $this->social_media4,
+            'social_media5' => $this->social_media5,
+            'social_media6' => $this->social_media6,
+        ]);
+
+         $this->contactomodal = false;
     }
 }

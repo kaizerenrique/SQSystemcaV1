@@ -36,7 +36,7 @@
             <p class="text-lg text-gray-700 font-semibold mt-1">{{$contacto->rif}}</p>
             <p class="text-lg text-gray-700 font-semibold mt-1">{{$contacto->telefono}}</p>
 
-            <button class="mt-10 w-full py-3 rounded-xl border border-purple-600 text-lg text-purple-600 hover:bg-purple-600 hover:text-gray-50" wire:click="configuracionEmpresa({{$contacto->id}})">
+            <button class="mt-10 w-full py-3 rounded-xl border border-purple-600 text-lg text-purple-600 hover:bg-purple-600 hover:text-gray-50" wire:click="configuracionEmpresa()">
                 Modificar
             </button>
         </card>               
