@@ -24,9 +24,7 @@
                             </div>
                         </div>        
                     </div>
-
-                    <iframe class="w-full max-h-full aspect-auto " ssrc="http://docs.google.com/gview?url={{ asset($url)}}&embedded=true" frameborder="0">
-                    </iframe>
+                    <iframe class="w-full max-h-full aspect-auto" src="https://docs.google.com/viewer?url={{ asset($url)}}&embedded=true" frameborder="0"></iframe>                    
                 </div>
             </div>
         </div>

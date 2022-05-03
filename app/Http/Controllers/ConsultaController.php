@@ -49,7 +49,9 @@ class ConsultaController extends Controller
     public function verDocumento($nombreDocumento)
     {
         if (Historial::where('nombreArchivo', $nombreDocumento)->exists()) {            
-            $url = 'http://ditecp.xyz/storage/'.$nombreDocumento;            
+            
+            $urlDoc = Historial::where('nombreArchivo', $nombreDocumento)->first();
+            $url = $urlDoc->url_documento;            
             return view('consultaCedula.verDocumento',['url' => $url]);
         }  
     }    
