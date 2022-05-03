@@ -342,5 +342,5 @@ class Personas extends Component
 
 
     }
-    
+
 }

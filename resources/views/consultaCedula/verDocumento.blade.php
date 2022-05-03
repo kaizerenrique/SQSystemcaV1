@@ -6,11 +6,21 @@
                     <div class="mt-4 text-2xl">
                         <div class="mt-4 text-2xl flex justify-between">                                                         
                             <div class="mr-2">
-                                <x-jet-button class="bg-indigo-500 hover:bg-indigo-700">
-                                    <a href="{{ route('welcome') }}">
-                                        {{ __('Inicio') }}
-                                    </a>                                    
-                                </x-jet-button>                                                        
+                                @if (Route::has('login'))
+                                    @auth
+                                        <x-jet-button class="bg-indigo-500 hover:bg-indigo-700">
+                                            <a href="{{ route('personas') }}">
+                                                {{ __('Personas') }}
+                                            </a>                                    
+                                        </x-jet-button> 
+                                    @else                                
+                                        <x-jet-button class="bg-indigo-500 hover:bg-indigo-700">
+                                            <a href="{{ route('welcome') }}">
+                                                {{ __('Inicio') }}
+                                            </a>                                    
+                                        </x-jet-button>
+                                    @endauth 
+                                @endif                                                       
                             </div>
                         </div>        
                     </div>

@@ -52,6 +52,5 @@ class ConsultaController extends Controller
             $url = 'http://ditecp.xyz/storage/'.$nombreDocumento;            
             return view('consultaCedula.verDocumento',['url' => $url]);
         }  
-    }
-    
+    }    
 }
