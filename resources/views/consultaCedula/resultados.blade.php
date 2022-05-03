@@ -1,16 +1,28 @@
 <x-guest-layout>    
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">                                              
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">                                                          
                 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-                    <div class="w-80 bg-white shadow rounded bg-indigo-500 text-white text-xl font-bold">
-                        <h2 class="px-4 py-2">
-                            {{$nombre}}
-                        </h2>
-                        <h2 class="px-4 py-2">
-                            {{$cedula}}
-                        </h2> 
-                    </div>                     
+                    <div class="mt-4 text-2xl">
+                        <div class="mt-4 text-2xl flex justify-between">
+                            <div class="w-80 bg-white shadow rounded bg-indigo-500 text-white text-xl font-bold">
+                                <h2 class="px-4 py-2">
+                                    {{$nombre}}
+                                </h2>
+                                <h2 class="px-4 py-2">
+                                    {{$cedula}}
+                                </h2>
+                            </div>                             
+                            <div class="mr-2">
+                                <x-jet-button class="bg-indigo-500 hover:bg-indigo-700">
+                                    <a href="{{ route('welcome') }}">
+                                        {{ __('Inicio') }}
+                                    </a>                                    
+                                </x-jet-button>                                                        
+                            </div>
+                        </div>        
+                    </div>
+                                                
                     <table class="md:table-fixed table-auto w-full mt-6">
                         <thead>
                             <tr class="bg-indigo-500 text-white">                                                      
