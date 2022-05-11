@@ -1,6 +1,6 @@
 <div class="p-2 sm:px-20 bg-white border-b border-gray-200">
     <div class="mt-4 text-2xl">
-        <div class="mt-4 text-2xl flex justify-between">
+        <div class="mt-4 mb-4 text-2xl flex justify-between">
             <div>Total de Usuarios Registrados: {{$users_count}} </div>
             <div class="mr-2">
                 <x-jet-button class="bg-indigo-500 hover:bg-indigo-700" wire:click="laboratorioAdd" >
@@ -10,7 +10,7 @@
         </div>        
     </div>
     
-    <div class="mt-3">        
+    <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">        
         <div class="flex justify-between">            
             <div>
                 <input wire:model="buscar" type="search" placeholder="Buscar" class="shadow appearence-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder-indigo-500" name="">
