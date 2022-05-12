@@ -54,10 +54,7 @@
                     </th>                    
                     <th class="px-4 py-2">
                         <div class="flex items-center">Código</div>
-                    </th>
-                    <th class="px-4 py-2">
-                        <div class="flex items-center">Nombre de archivo</div>
-                    </th>                     
+                    </th>                   
                     <th class="px-4 py-2">
                         <div class="flex items-center">Laboratorio</div>
                     </th>
@@ -72,11 +69,6 @@
                         <td class="rounded border px-4 py-2">{{$historial->nombreyapellido}}</td> 
                         <td class="rounded border px-4 py-2">{{$historial->cedula}}</td>                                               
                         <td class="rounded border px-4 py-2">{{$historial->codigo}}</td>
-                        <td class="rounded border px-4 py-2">
-                            <a href="{{$historial->url_simbol}}" target="_blank">
-                                {{$historial->nombreArchivo}}
-                            </a>                            
-                        </td>
                         <td class="rounded border px-4 py-2">{{$historial->nombreLaboratorio}}</td> 
                         <td class="rounded border px-4 py-2">
                             <x-jet-button class="bg-green-500 hover:bg-green-700">
@@ -84,6 +76,11 @@
                                     {{ __('Ver') }}
                                 </a>                                
                             </x-jet-button> 
+                            <x-jet-button class="bg-blue-500 hover:bg-blue-700">
+                                <a href="{{ route('descargar', $historial->nombreArchivo)}}" target="_blank">
+                                    {{ __('Descarga') }}
+                                </a>                                
+                            </x-jet-button>
                             <x-jet-button class="bg-red-500 hover:bg-red-700" wire:click="consulBorrarDocumento({{$historial->id}})">
                                 {{ __('Eliminar') }}
                             </x-jet-button>                           

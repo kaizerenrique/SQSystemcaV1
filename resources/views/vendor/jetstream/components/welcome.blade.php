@@ -5,7 +5,7 @@
     </div>
 -->
     <div class="mt-8 text-2xl">
-        Bienvenidos a el Sistema web de SQ System C.A
+        Bienvenidos a el Sistema web de QSLAB SISTEMAS
     </div>
 
     <div class="mt-6 text-gray-500">

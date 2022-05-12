@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Mail\mailRegistroLaboratorio;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\DocumentosController;
+use App\Models\Historial;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +49,9 @@ Route::get('/consulta', [ConsultaController::class, 'index'])->name('consulta');
 Route::post('/consulta', [ConsultaController::class, 'show'])->name('consulta.show');
 
 Route::get('/consulta/{nombreDocumento}', [ConsultaController::class, 'verDocumento'])->name('consulta.verDocumento');
+
+Route::get('/descargar/{nombreArchivo}', function ($nombreDocumento) {
+    $respuesta = Historial::where("nombreArchivo", $nombreDocumento)->first();    
+    $url_documento = $respuesta->url_documento;
+    return Redirect::to($url_documento);  
+})->name('descargar');
