@@ -1,10 +1,10 @@
 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
     <div class="mt-8 text-2xl">
-        Bienvenidos a el Sistema web de SQ System C.A
+        Bienvenidos a QSLAB SISTEMAS
     </div>
 
     <div class="mt-6 text-gray-500">
-        Aquí se puede colocar una breve descripción de la empresa, del sistema u algún otro tipo de anuncio o información 
+        El sistema de información QSLAB es un software desarrollado con la finalidad de proporcionar a los laboratorios clínicos una plataforma de control y gestión.
     </div>
 </div>
 
