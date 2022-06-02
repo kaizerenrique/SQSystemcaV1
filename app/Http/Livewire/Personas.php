@@ -12,11 +12,13 @@ use App\Mail\notificacion;
 use App\Models\Configuracion;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
+use App\Traits\consultaCedula;
 
 
 class Personas extends Component
 {
     use WithPagination;
+    use consultaCedula;
 
     public $cedula;
     public $nac;
@@ -107,15 +109,33 @@ class Personas extends Component
         } elseif (Persona::where('cedula', $cedula)->exists() == null) {
             $this->modalCedula = false;
 
-            $this->nac = $nac;
-            $this->cedula = $cedula;
-            $this->reset(['nombre']);
-            $this->reset(['apellido']);
-            $this->reset(['pasaporte']);
-            $this->reset(['fnacimiento']);
-            $this->reset(['nrotelefono']);
-            $this->reset(['direccion']);
-            $this->confirmingPersonaAdd = true;
+            //consultar cedula con el CNE
+            $respuesta = $this->consultar($nac, $cedula);
+
+            //validamos en caso de falla de conexion 
+            if ($respuesta == false) {
+                $this->nac = $nac;
+                $this->cedula = $cedula;
+                $this->reset(['nombre']);
+                $this->reset(['apellido']);
+                $this->reset(['pasaporte']);
+                $this->reset(['fnacimiento']);
+                $this->reset(['nrotelefono']);
+                $this->reset(['direccion']);
+                $this->confirmingPersonaAdd = true;
+            } else {
+                $this->nac = $nac;
+                $this->cedula = $cedula;
+                $this->nombre = $respuesta['nombres'];
+                $this->apellido = $respuesta['apellidos'];
+                $this->reset(['pasaporte']);
+                $this->reset(['fnacimiento']);
+                $this->reset(['nrotelefono']);
+                $this->reset(['direccion']);
+                $this->confirmingPersonaAdd = true;
+            }
+
+            
         } else {
             //Si la Cedula Aun no esta registrada
             //Y no esta en el CNE se desplieaga el formulario de registro
