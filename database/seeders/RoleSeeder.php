@@ -45,7 +45,8 @@ class RoleSeeder extends Seeder
             'email' => 'ohaymard@gmail.com',
             'password' => bcrypt('123456789'),
         ])->assignRole('Administrador');
-
+        
+        /*
         User::create([
             'name' => 'Laboratorio Clinico Prueba1',
             'email' => 'prueba@pruebas1.com',
@@ -74,12 +75,13 @@ class RoleSeeder extends Seeder
             'password' => bcrypt('123456789'),
             'email_verified_at' => '2022-02-26 20:48:29'
         ])->assignRole('Usuario');
-
+        */
+       
         // configuracion por defecto
         Configuracion::create([
             'max_personas' => 6,
             'max_empresas' => 24,
-            'email_system' => 'ohaymard@gmail.com'
+            'email_system' => 'qslabsys.root@gmail.com'
         ]);
 
         //presentacion por defecto
@@ -87,7 +89,7 @@ class RoleSeeder extends Seeder
             'nombre' => 'Nombre de la Empresa',
             'rif' => 'J-12345678-9',
             'telefono' => '(0286) 987 65 43',
-            'email' => 'ohaymard@gmail.com'
+            'email' => 'qslabsys.root@gmail.com'
         ]);
     }
 }
