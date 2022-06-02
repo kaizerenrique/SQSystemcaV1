@@ -124,13 +124,24 @@ class Personas extends Component
                 $this->reset(['direccion']);
                 $this->confirmingPersonaAdd = true;
             } else {
-                //Si la Cedula Aun no esta registrada
-                //Y no esta en el CNE se desplieaga el formulario de registro
                 $this->modalCedula = false;
                 $this->nac = $nac;
                 $this->cedula = $cedula;
-                $this->confirmingPersonaAdd = true;
+                $this->nombre = $respuesta['nombres'];
+                $this->apellido = $respuesta['apellidos'];
+                $this->reset(['pasaporte']);
+                $this->reset(['fnacimiento']);
+                $this->reset(['nrotelefono']);
+                $this->reset(['direccion']);
+                $this->confirmingPersonaAdd = true;                
             }            
+        } else {
+            //Si la Cedula Aun no esta registrada
+            //Y no esta en el CNE se desplieaga el formulario de registro
+            $this->modalCedula = false;
+            $this->nac = $nac;
+            $this->cedula = $cedula;
+            $this->confirmingPersonaAdd = true;
         }
     }
 

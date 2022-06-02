@@ -120,10 +120,8 @@ class ApiController extends Controller
     {
         
         do {
-            $dinamicoUrl = Str::random(21);
-
-            //$url_sistema = env('APP_URL');
-            $url_sistema = 'http://ditecp.xyz';
+            $dinamicoUrl = Str::random(21);            
+            $url_sistema = 'http://qslabsys.com';
             $url_simbol = $url_sistema . '/documentos/' . $dinamicoUrl;
 
         } while (Historial::where('url_simbol', $dinamicoUrl)->exists());
