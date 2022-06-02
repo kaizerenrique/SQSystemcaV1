@@ -90,7 +90,7 @@ class Personas extends Component
         }        
     }
 
-    //comprobamos is la cedula esta o no en la base de datos
+    //comprobamos si la cedula esta o no en la base de datos
     public function comprobarCedula()
     { 
 
@@ -124,24 +124,13 @@ class Personas extends Component
                 $this->reset(['direccion']);
                 $this->confirmingPersonaAdd = true;
             } else {
+                //Si la Cedula Aun no esta registrada
+                //Y no esta en el CNE se desplieaga el formulario de registro
+                $this->modalCedula = false;
                 $this->nac = $nac;
                 $this->cedula = $cedula;
-                $this->nombre = $respuesta['nombres'];
-                $this->apellido = $respuesta['apellidos'];
-                $this->reset(['pasaporte']);
-                $this->reset(['fnacimiento']);
-                $this->reset(['nrotelefono']);
-                $this->reset(['direccion']);
                 $this->confirmingPersonaAdd = true;
-            }
-
-            
-        } else {
-            //Si la Cedula Aun no esta registrada
-            //Y no esta en el CNE se desplieaga el formulario de registro
-            $this->modalCedula = false;
-            $this->cedula = $cedula;
-            $this->confirmingPersonaAdd = true;
+            }            
         }
     }
 
