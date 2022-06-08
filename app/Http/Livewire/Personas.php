@@ -220,7 +220,7 @@ class Personas extends Component
         Storage::disk('public')->delete($resul->nombreArchivo);
         $resul->delete();
         $this->titulo = 'Borrado';
-        $this->resultado = 'El documento a sido borrado exitosamente';
+        $this->resultado = 'El documento se ha borrado exitosamente.';
         $this->eliminado = true;
     }
 
@@ -255,7 +255,7 @@ class Personas extends Component
 
         //funcion que envia el correo
         $subject = 'Eliminar Registro';
-        $mensajeCorreo = 'El perfil a sido Eliminado Correctamente';
+        $mensajeCorreo = 'El Perfil se ha borrado exitosamente.';
         $nombre = $resul->nombre;
         $apellido = $resul->apellido;
         $cedula = $resul->cedula;
@@ -267,7 +267,7 @@ class Personas extends Component
         $resul->delete();
 
         $this->titulo = 'Perfil Eliminado';
-        $this->resultado = 'El perfil a sido Eliminado Correctamente';
+        $this->resultado = 'El Perfil se ha borrado exitosamente.';
         $this->eliminado = true;
     }
 
