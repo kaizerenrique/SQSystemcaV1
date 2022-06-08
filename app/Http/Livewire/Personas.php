@@ -184,14 +184,14 @@ class Personas extends Component
 
         //funcion que envia el correo
         $subject = 'Nuevo Registro';
-        $mensajeCorreo = 'El registro se a realizado correctamente';
+        $mensajeCorreo = 'Se ha realizado el registro de forma correcta.';
         $nombre = $this->nombre;
         $apellido = $this->apellido;
         $cedula = $this->cedula;
         $email = auth()->user()->email;
         Mail::to($email)->send(new notificacion($subject, $mensajeCorreo, $nombre, $apellido, $cedula, $code));
 
-        $mensaje = 'Se a realizado el registro de forma correcta.';
+        $mensaje = 'Se ha realizado el registro de forma correcta.';
         $this->mensaje = $mensaje;
         $this->mensajeModal = true; 
     }
