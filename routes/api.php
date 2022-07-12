@@ -41,3 +41,13 @@ Route::post('documento',[ApiController::class,'doc'])->middleware('auth:sanctum'
 Route::get('/codigonuevo',[ApiController::class,'generarCodigoNuevo'])->middleware('auth:sanctum');
 
 Route::get('/tokenmenorsincedula',[ApiController::class,'generarTokenMenorSinCedula'])->middleware('auth:sanctum');
+
+Route::post('/examennuevo',[ApiController::class,'examennuevo'])->middleware('auth:sanctum');
+
+Route::post('/listadodeexamenes',[ApiController::class,'listadodeexamenes'])->middleware('auth:sanctum');
+
+Route::post('/examen',[ApiController::class,'examen'])->middleware('auth:sanctum');
+
+Route::post('/editarexamen',[ApiController::class,'editarexamen'])->middleware('auth:sanctum');
+
+Route::post('/eliminarexamen',[ApiController::class,'eliminarexamen'])->middleware('auth:sanctum');

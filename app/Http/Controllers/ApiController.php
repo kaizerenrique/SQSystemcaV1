@@ -11,6 +11,7 @@ use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Str;
 use App\Models\Persona;
 use App\Models\Historial;
+use App\Models\Prueba;
 
 class ApiController extends Controller
 {
@@ -115,7 +116,8 @@ class ApiController extends Controller
         } 
     }
 
-    //esta funcion genera url simbolicas para el sistema qr
+    //esta funcion genera url simbolicas 
+    //para el sistema qr
     public function generadorDeEnlaces()
     {
         
@@ -203,6 +205,8 @@ class ApiController extends Controller
         ]);
     }
 
+    //funcion que genera un token para los menores 
+    //que no poseen numero de cedula
     public function generarTokenMenorSinCedula()
     {
         //generar identificador para menor de edad sin cedula
@@ -215,6 +219,108 @@ class ApiController extends Controller
             "status" => 200,
             "ms" => "Exitoso",
             "data" => $msc
+        ]);
+    }
+
+    //funcion para registrar un producto
+    public function examennuevo(Request $request)
+    {
+        $laboratorio = $request->user();
+        $rolLaboratorio = $laboratorio->getRoleNames();
+
+        $request->validate([
+            'nombre' => 'required|string|min:3',
+            'descripcion' => 'required|string|min:15',
+            'tipoMoneda' => 'required|string|min:2',
+            'costo' => 'required|numeric|between:0,999999999.99',
+            'estatus' => 'required',
+        ]);
+
+        $registro = $request->user()->pruebasLaboratorio()->create([
+            'nombre' => $request->nombre,
+            'descripcion' => $request->descripcion,
+            'tipoMoneda' => $request->tipoMoneda,
+            'costo' => $request->costo, 
+            'estatus' => $request->estatus,           
+        ]);   
+
+        //Respuesta
+        return response()->json([
+            "status" => 200,
+            "ms" => "Registro Exitoso",
+            "data" => $registro,
+        ]);
+
+    }
+
+    //lista de examenes en la web cargado en la web 
+    //por el laboratorio
+    public function listadodeexamenes(Request $request)
+    {
+        $laboratorio = $request->user();
+        $laboratorio->pruebasLaboratorio;
+
+        //Respuesta
+        return response()->json([
+            "status" => 200,
+            "ms" => "Listado",
+            "data" => $laboratorio,
+        ]);
+    }
+
+    //ver un examen en espesifico
+    public function examen(Request $request)
+    {
+        $laboratorio = $request->user();
+        $examen = Prueba::findOrFail($request->id_examen);
+
+        //Respuesta
+        return response()->json([
+            "status" => 200,
+            "ms" => "Examen",
+            "data" => $examen,
+        ]);
+    }
+
+    //modificar o editar examen
+    public function editarexamen(Request $request)
+    {
+        $request->validate([
+            'nombre' => 'required|string|min:3',
+            'descripcion' => 'required|string|min:15',
+            'tipoMoneda' => 'required|string|min:2',
+            'costo' => 'required|numeric|between:0,999999999.99',
+            'estatus' => 'required',
+        ]);
+
+        $examen = Prueba::findOrFail($request->id_examen);
+        $examen->nombre = $request->nombre;
+        $examen->descripcion= $request->descripcion;
+        $examen->tipoMoneda = $request->tipoMoneda;
+        $examen->costo = $request->costo;
+        $examen->estatus = $request->estatus;
+
+        $examen->update();
+
+        //Respuesta
+        return response()->json([
+            "status" => 200,
+            "ms" => "Modificado correctamente",
+            "data" => $examen,
+        ]);
+    }
+
+    //eliminar examen 
+    public function eliminarexamen(Request $request)
+    {
+        $laboratorio = $request->user();
+        $examen = Prueba::findOrFail($request->id_examen);
+        $examen->delete();
+
+        //Respuesta
+        return response()->json([
+            "status" => 200,
+            "ms" => "Examen Eliminado ",
         ]);
     }
 
